@@ -1,0 +1,942 @@
+{
+  "meta": {
+    "missionTitle": "终极抢劫：大清国库",
+    "stage": "第一章 · 大清国库大劫案",
+    "version": "1.0.0",
+    "startNode": "HEIST_INTRO",
+    "defaultCharacter": "anchunxiao",
+    "currency": "两",
+    "titleVideo": "assets/videos/title.mp4",
+    "openingLine": "雍正年间 · 紫禁城 · 国库",
+    "initialFlags": {
+      "money": 0,
+      "health": 100,
+      "armor": 0,
+      "wanted": 0
+    }
+  },
+  "nodes": {
+    "HEIST_INTRO": {
+      "id": "HEIST_INTRO",
+      "character": "anchunxiao",
+      "location": "紫禁城 · 国库",
+      "video": "assets/videos/heist_intro.mp4",
+      "missionTitle": "终极抢劫：大清国库",
+      "objective": "拿走最后一箱财物",
+      "wantedLevel": 0,
+      "hud": [
+        {
+          "label": "等级",
+          "value": "LV.1 答应"
+        },
+        {
+          "label": "现金",
+          "value": "0两"
+        },
+        {
+          "label": "特殊能力",
+          "value": "小娟我的嗓子"
+        },
+        {
+          "label": "武器",
+          "value": "无"
+        }
+      ],
+      "controls": {
+        "playKey": "W",
+        "playLabel": "继续",
+        "interact": {
+          "key": "E",
+          "prompt": "按 E 装走高价值银票金票",
+          "nagAfter": 5000,
+          "nagText": "E  装走高价值银票金票",
+          "next": "HEIST_GRAB"
+        }
+      },
+      "wheelRules": {
+        "allowed": [
+          "anchunxiao"
+        ],
+        "disabled": {
+          "nianzhuohua": "正在执行其他任务",
+          "niuhulu": "正在执行其他任务"
+        }
+      },
+      "events": []
+    },
+    "HEIST_GRAB": {
+      "id": "HEIST_GRAB",
+      "character": "anchunxiao",
+      "location": "紫禁城 · 国库",
+      "video": "assets/videos/heist_grab.mp4",
+      "missionTitle": "终极抢劫：大清国库",
+      "objective": "拿走最后一箱财物",
+      "wantedLevel": 0,
+      "hud": [
+        {
+          "label": "等级",
+          "value": "LV.1 答应"
+        },
+        {
+          "label": "现金",
+          "value": "0两"
+        },
+        {
+          "label": "特殊能力",
+          "value": "小娟我的嗓子"
+        },
+        {
+          "label": "武器",
+          "value": "无"
+        }
+      ],
+      "controls": {
+        "playKey": "W",
+        "playLabel": "继续"
+      },
+      "onEnd": {
+        "next": "AERIAL_SPLIT"
+      },
+      "wheelRules": {
+        "allowed": [
+          "anchunxiao"
+        ],
+        "disabled": {
+          "nianzhuohua": "正在执行其他任务",
+          "niuhulu": "正在执行其他任务"
+        }
+      },
+      "events": [
+        {
+          "at": 1500,
+          "eventPopup": {
+            "title": "已掠夺财物总价值",
+            "sub": "30,000,000两",
+            "duration": 2400
+          },
+          "moneyTotal": 30000000
+        },
+        {
+          "at": 3800,
+          "sound": "assets/audio/alarm.mp3",
+          "uiAlert": true,
+          "wantedLevel": 2
+        },
+        {
+          "at": 4200,
+          "eventPopup": {
+            "title": "警报：国库遭劫",
+            "sub": "皇后阵营已进入追捕状态",
+            "duration": 2600
+          }
+        },
+        {
+          "at": 4400,
+          "objective": "分头逃亡",
+          "subObjective": "按计划从不同出口撤离"
+        },
+        {
+          "at": 6200,
+          "speaker": "钮祜禄",
+          "subtitle": "分头走。"
+        },
+        {
+          "at": 7400,
+          "objective": "分头逃亡"
+        }
+      ]
+    },
+    "AERIAL_SPLIT": {
+      "id": "AERIAL_SPLIT",
+      "character": "anchunxiao",
+      "location": "紫禁城上空",
+      "video": "assets/videos/heist_grab.mp4",
+      "missionTitle": "终极抢劫：大清国库",
+      "objective": "分头逃亡",
+      "hud": [],
+      "controls": {},
+      "switchCutscene": {
+        "target": "anchunxiao",
+        "sound": "assets/audio/character_switch.mp3",
+        "next": "CART_ALLEY"
+      },
+      "events": []
+    },
+    "CART_ALLEY": {
+      "id": "CART_ALLEY",
+      "character": "anchunxiao",
+      "location": "延禧宫夹道",
+      "video": "assets/videos/cart_alley.mp4",
+      "missionTitle": "终极抢劫：大清国库",
+      "objective": "携带战利品沿宫道撤离",
+      "wantedLevel": 2,
+      "hud": [
+        {
+          "label": "等级",
+          "value": "LV.1 答应"
+        },
+        {
+          "label": "现金",
+          "value": "0两"
+        },
+        {
+          "label": "特殊能力",
+          "value": "小娟我的嗓子"
+        },
+        {
+          "label": "武器",
+          "value": "无"
+        }
+      ],
+      "controls": {
+        "playKey": "W",
+        "playLabel": "继续",
+        "interact": {
+          "key": "E",
+          "prompt": "按 E 打开小车暗格",
+          "nagAfter": 5000,
+          "nagText": "E  打开小车暗格",
+          "next": "SHOOT"
+        }
+      },
+      "wheelRules": {
+        "allowed": [
+          "anchunxiao"
+        ],
+        "disabled": {
+          "nianzhuohua": "正在执行其他任务",
+          "niuhulu": "正在执行其他任务"
+        }
+      },
+      "events": [
+        {
+          "at": 3310,
+          "speaker": "宝娟",
+          "subtitle": "小主！不好了！",
+          "subtitleDuration": 1220
+        },
+        {
+          "at": 4530,
+          "speaker": "宝娟",
+          "subtitle": "小主嗓子哑了！",
+          "subtitleDuration": 1860
+        },
+        {
+          "at": 6390,
+          "speaker": "宝娟",
+          "subtitle": "皇后的人追来了！",
+          "subtitleDuration": 1220
+        },
+        {
+          "at": 14500,
+          "uiAlert": true,
+          "wantedLevel": 3,
+          "objective": "突破包围",
+          "subObjective": ""
+        }
+      ],
+      "moneyTotal": 30000000
+    },
+    "SHOOT": {
+      "id": "SHOOT",
+      "character": "anchunxiao",
+      "location": "延禧宫夹道",
+      "video": "assets/videos/shoot.mp4",
+      "missionTitle": "终极抢劫：大清国库",
+      "objective": "突破包围",
+      "wantedLevel": 3,
+      "hud": [
+        {
+          "label": "等级",
+          "value": "LV.1 答应"
+        },
+        {
+          "label": "现金",
+          "value": "0两"
+        },
+        {
+          "label": "特殊能力",
+          "value": "小娟我的嗓子"
+        },
+        {
+          "label": "武器",
+          "value": "微型冲锋枪"
+        }
+      ],
+      "ammo": {
+        "max": 8,
+        "start": 8,
+        "reserve": 9999
+      },
+      "controls": {
+        "playKey": "MouseLeft",
+        "playLabel": "射击"
+      },
+      "wheelRules": {
+        "allowed": [
+          "anchunxiao",
+          "nianzhuohua"
+        ],
+        "highlight": "nianzhuohua",
+        "next": {
+          "nianzhuohua": "SWITCH_NZH"
+        },
+        "disabled": {
+          "niuhulu": "正在执行其他任务"
+        }
+      },
+      "events": [
+        {
+          "at": 3260,
+          "ammo": 7
+        },
+        {
+          "at": 3555,
+          "ammo": 6
+        },
+        {
+          "at": 3995,
+          "ammo": 5
+        },
+        {
+          "at": 4320,
+          "ammo": 4
+        },
+        {
+          "at": 4600,
+          "ammo": 3
+        },
+        {
+          "at": 5365,
+          "ammo": 2
+        },
+        {
+          "at": 5960,
+          "ammo": 1
+        },
+        {
+          "at": 6325,
+          "ammo": 0
+        },
+        {
+          "at": 7900,
+          "sysModal": {
+            "title": "弹匣已空",
+            "sub": "请求年灼华支援",
+            "duration": 1800
+          }
+        },
+        {
+          "at": 9600,
+          "objective": "请求支援",
+          "subObjective": "",
+          "showSwitchHint": true
+        }
+      ],
+      "moneyTotal": 30000000,
+      "weaponSelect": {
+        "required": "smg",
+        "name": "微型冲锋枪"
+      }
+    },
+    "SWITCH_NZH": {
+      "id": "SWITCH_NZH",
+      "character": "anchunxiao",
+      "location": "紫禁城上空",
+      "video": "assets/videos/shoot.mp4",
+      "missionTitle": "终极抢劫：大清国库",
+      "objective": "请求支援",
+      "hud": [],
+      "controls": {},
+      "switchCutscene": {
+        "target": "nianzhuohua",
+        "sound": "assets/audio/character_switch.mp3",
+        "next": "CARJACK"
+      },
+      "events": []
+    },
+    "APPROACH_CAR": {
+      "id": "APPROACH_CAR",
+      "character": "nianzhuohua",
+      "location": "御花园宫道",
+      "video": "assets/videos/approach_car.mp4",
+      "missionTitle": "终极抢劫：大清国库",
+      "objective": "夺取皇帝御驾",
+      "wantedLevel": 3,
+      "hud": [
+        {
+          "label": "等级",
+          "value": "LV.45 年灼华"
+        },
+        {
+          "label": "怒气",
+          "value": "87%"
+        },
+        {
+          "label": "特殊能力",
+          "value": "一丈红狂暴"
+        },
+        {
+          "label": "载具",
+          "value": "双涡轮八抬大轿"
+        }
+      ],
+      "controls": {
+        "playKey": "W",
+        "playLabel": "继续",
+        "interact": {
+          "key": "E",
+          "prompt": "按 E 拉开驾驶门",
+          "nagAfter": 5000,
+          "nagText": "E  拉开驾驶门",
+          "next": "CARJACK"
+        }
+      },
+      "wheelRules": {
+        "allowed": [
+          "nianzhuohua"
+        ],
+        "disabled": {
+          "anchunxiao": "正在执行其他任务",
+          "niuhulu": "正在执行其他任务"
+        }
+      },
+      "events": [
+        {
+          "at": 3000,
+          "eventPopup": {
+            "title": "发现高性能载具",
+            "sub": "Pegassi Zentorno",
+            "duration": 2400
+          }
+        }
+      ],
+      "redirectTo": "CARJACK"
+    },
+    "CARJACK": {
+      "id": "CARJACK",
+      "character": "nianzhuohua",
+      "location": "御花园宫道",
+      "video": "assets/videos/carjack.mp4",
+      "missionTitle": "终极抢劫：大清国库",
+      "objective": "夺取皇帝御驾",
+      "wantedLevel": 3,
+      "hud": [
+        {
+          "label": "等级",
+          "value": "LV.45 年灼华"
+        },
+        {
+          "label": "怒气",
+          "value": "87%"
+        },
+        {
+          "label": "特殊能力",
+          "value": "一丈红狂暴"
+        },
+        {
+          "label": "载具",
+          "value": "Pegassi Zentorno"
+        }
+      ],
+      "controls": {
+        "playKey": "W",
+        "playLabel": "继续"
+      },
+      "onEnd": {
+        "next": "DRIVE_FM"
+      },
+      "wheelRules": {
+        "allowed": [
+          "nianzhuohua"
+        ],
+        "disabled": {
+          "anchunxiao": "正在执行其他任务",
+          "niuhulu": "正在执行其他任务"
+        }
+      },
+      "events": [
+        {
+          "at": 1200,
+          "eventPopup": {
+            "title": "发现高性能载具",
+            "sub": "Pegassi Zentorno",
+            "duration": 2200
+          }
+        },
+        {
+          "at": 9600,
+          "wantedLevel": 4
+        },
+        {
+          "at": 12560,
+          "speaker": "雍正皇帝",
+          "subtitle": "你的胆子真是肥嘟嘟的！",
+          "subtitleDuration": 1720
+        },
+        {
+          "at": 24100,
+          "vehiclePopup": {
+            "title": "载具已获得",
+            "name": "Pegassi Zentorno",
+            "stats": [
+              {
+                "label": "皇家御驾盗窃",
+                "value": "已记录"
+              },
+              {
+                "label": "皇帝好感度",
+                "value": "-999"
+              }
+            ],
+            "duration": 2900
+          }
+        },
+        {
+          "at": 24600,
+          "objective": "前往接应安春晓",
+          "subObjective": ""
+        }
+      ]
+    },
+    "DRIVE_FM": {
+      "id": "DRIVE_FM",
+      "character": "nianzhuohua",
+      "location": "紫禁城宫道",
+      "video": "assets/videos/drive_fm.mp4",
+      "missionTitle": "终极抢劫：大清国库",
+      "objective": "前往接应安春晓",
+      "wantedLevel": 4,
+      "hud": [
+        {
+          "label": "等级",
+          "value": "LV.45 年灼华"
+        },
+        {
+          "label": "怒气",
+          "value": "87%"
+        },
+        {
+          "label": "特殊能力",
+          "value": "一丈红狂暴"
+        },
+        {
+          "label": "载具",
+          "value": "Pegassi Zentorno"
+        }
+      ],
+      "controls": {
+        "playKey": "W",
+        "playLabel": "继续"
+      },
+      "wheelRules": {
+        "allowed": [
+          "nianzhuohua"
+        ],
+        "disabled": {
+          "anchunxiao": "正在执行其他任务",
+          "niuhulu": "正在执行其他任务"
+        }
+      },
+      "events": [
+        {
+          "at": 600,
+          "radio": true,
+          "speaker": "大清FM 1722",
+          "subtitle": "这里是大清FM一七二二，宫廷路况实时播报。"
+        },
+        {
+          "at": 3200,
+          "radio": true,
+          "speaker": "大清FM 1722",
+          "subtitle": "雍正皇帝御用车辆刚刚失窃，驾驶者已确认为年贵妃。"
+        },
+        {
+          "at": 6800,
+          "radio": true,
+          "speaker": "大清FM 1722",
+          "subtitle": "建议沿途侍卫不要单独拦截。"
+        },
+        {
+          "at": 9200,
+          "eventPopup": {
+            "title": "附近随机事件",
+            "sub": "保熟吗？",
+            "duration": 2000
+          }
+        }
+      ],
+      "choices": [
+        {
+          "key": "E",
+          "text": "接受支线「保熟吗？」",
+          "next": "WATERMELON"
+        },
+        {
+          "key": "Q",
+          "text": "忽略，继续接应",
+          "next": "ROADBLOCK"
+        }
+      ]
+    },
+    "WATERMELON": {
+      "id": "WATERMELON",
+      "character": "nianzhuohua",
+      "location": "紫禁城宫道 · 瓜摊",
+      "video": "assets/videos/watermelon.mp4",
+      "missionTitle": "终极抢劫：大清国库",
+      "objective": "验证西瓜成熟度",
+      "wantedLevel": 4,
+      "hud": [
+        {
+          "label": "等级",
+          "value": "LV.45 年灼华"
+        },
+        {
+          "label": "怒气",
+          "value": "87%"
+        },
+        {
+          "label": "特殊能力",
+          "value": "一丈红狂暴"
+        },
+        {
+          "label": "载具",
+          "value": "Pegassi Zentorno"
+        }
+      ],
+      "controls": {
+        "playKey": "W",
+        "playLabel": "继续"
+      },
+      "onEnd": {
+        "next": "ROADBLOCK"
+      },
+      "wheelRules": {
+        "allowed": [
+          "nianzhuohua"
+        ],
+        "disabled": {
+          "anchunxiao": "正在执行其他任务",
+          "niuhulu": "正在执行其他任务"
+        }
+      },
+      "events": [
+        {
+          "at": 8200,
+          "speaker": "年灼华",
+          "subtitle": "这瓜保熟吗？"
+        },
+        {
+          "at": 10400,
+          "speaker": "摊主",
+          "subtitle": "现切现卖，吃了不烧心。"
+        },
+        {
+          "at": 18200,
+          "eventPopup": {
+            "title": "支线完成",
+            "sub": "全部现切",
+            "duration": 2200
+          }
+        }
+      ]
+    },
+    "ROADBLOCK": {
+      "id": "ROADBLOCK",
+      "character": "nianzhuohua",
+      "location": "景仁宫前",
+      "video": "assets/videos/roadblock.mp4",
+      "missionTitle": "终极抢劫：大清国库",
+      "objective": "突破皇后阵营封锁",
+      "wantedLevel": 4,
+      "hud": [
+        {
+          "label": "等级",
+          "value": "LV.45 年灼华"
+        },
+        {
+          "label": "怒气",
+          "value": "87%"
+        },
+        {
+          "label": "特殊能力",
+          "value": "一丈红狂暴"
+        },
+        {
+          "label": "载具",
+          "value": "Pegassi Zentorno"
+        }
+      ],
+      "controls": {
+        "playKey": "W",
+        "playLabel": "继续"
+      },
+      "wheelRules": {
+        "allowed": [
+          "nianzhuohua",
+          "niuhulu"
+        ],
+        "highlight": "niuhulu",
+        "next": {
+          "niuhulu": "SWITCH_NHL"
+        },
+        "disabled": {
+          "anchunxiao": "正在执行其他任务"
+        }
+      },
+      "events": [
+        {
+          "at": 4000,
+          "objective": "突破皇后阵营封锁"
+        },
+        {
+          "at": 15000,
+          "speaker": "安春晓",
+          "subtitle": "快走。"
+        },
+        {
+          "at": 16800,
+          "eventPopup": {
+            "title": "队友已接应：安春晓",
+            "sub": "战利品已保全",
+            "duration": 2600
+          }
+        },
+        {
+          "at": 19200,
+          "objective": "切换钮祜禄",
+          "subObjective": "按住 Alt 切换钮祜禄",
+          "showSwitchHint": true
+        }
+      ]
+    },
+    "SWITCH_NHL": {
+      "id": "SWITCH_NHL",
+      "character": "nianzhuohua",
+      "location": "紫禁城上空",
+      "video": "assets/videos/roadblock.mp4",
+      "missionTitle": "终极抢劫：大清国库",
+      "objective": "切换钮祜禄",
+      "hud": [],
+      "controls": {},
+      "switchCutscene": {
+        "target": "niuhulu",
+        "sound": "assets/audio/character_switch.mp3",
+        "next": "WESTGATE"
+      },
+      "events": []
+    },
+    "WESTGATE": {
+      "id": "WESTGATE",
+      "character": "niuhulu",
+      "location": "紫禁城 · 西门",
+      "video": "assets/videos/westgate.mp4",
+      "missionTitle": "终极抢劫：大清国库",
+      "objective": "开放最终撤离路线",
+      "wantedLevel": 4,
+      "hud": [
+        {
+          "label": "身份",
+          "value": "主谋 / 操盘手"
+        },
+        {
+          "label": "特殊能力",
+          "value": "惊鸿心眼"
+        }
+      ],
+      "controls": {
+        "playKey": "W",
+        "playLabel": "继续"
+      },
+      "onEnd": {
+        "next": "SWITCH_TO_INSURGENT"
+      },
+      "wheelRules": {
+        "allowed": [
+          "niuhulu"
+        ],
+        "disabled": {
+          "anchunxiao": "正在执行其他任务",
+          "nianzhuohua": "正在执行其他任务"
+        }
+      },
+      "events": [
+        {
+          "at": 2000,
+          "eventPopup": {
+            "title": "内应已就位",
+            "sub": "撤离路线已开放",
+            "duration": 2400
+          }
+        }
+      ]
+    },
+    "SWITCH_TO_INSURGENT": {
+      "id": "SWITCH_TO_INSURGENT",
+      "character": "nianzhuohua",
+      "location": "紫禁城 · 西门外",
+      "video": "assets/videos/switch_insurgent.mp4",
+      "missionTitle": "终极抢劫：大清国库",
+      "objective": "三人汇合，换乘装甲车",
+      "wantedLevel": 4,
+      "hud": [
+        {
+          "label": "等级",
+          "value": "LV.45 年灼华"
+        },
+        {
+          "label": "怒气",
+          "value": "87%"
+        },
+        {
+          "label": "特殊能力",
+          "value": "一丈红狂暴"
+        },
+        {
+          "label": "载具",
+          "value": "Pegassi Zentorno"
+        }
+      ],
+      "controls": {
+        "playKey": "W",
+        "playLabel": "继续"
+      },
+      "onEnd": {
+        "next": "BREAKOUT"
+      },
+      "wheelRules": {
+        "allowed": [
+          "nianzhuohua",
+          "anchunxiao",
+          "niuhulu"
+        ]
+      },
+      "events": [
+        {
+          "at": 9000,
+          "eventPopup": {
+            "title": "团队已集结",
+            "sub": "3/3",
+            "duration": 2200
+          }
+        },
+        {
+          "at": 11000,
+          "eventPopup": {
+            "title": "逃逸载具已就位",
+            "sub": "HVY Insurgent Pick-Up Custom",
+            "duration": 2400
+          }
+        },
+        {
+          "at": 13500,
+          "objective": "逃离紫禁城"
+        }
+      ]
+    },
+    "BREAKOUT": {
+      "id": "BREAKOUT",
+      "character": "nianzhuohua",
+      "location": "逃离中 · 紫禁城西门",
+      "video": "assets/videos/breakout.mp4",
+      "missionTitle": "终极抢劫：大清国库",
+      "objective": "逃离紫禁城",
+      "wantedLevel": 5,
+      "hud": [
+        {
+          "label": "等级",
+          "value": "LV.45 年灼华"
+        },
+        {
+          "label": "载具",
+          "value": "HVY Insurgent"
+        },
+        {
+          "label": "车顶机枪",
+          "value": "安春晓"
+        },
+        {
+          "label": "导航",
+          "value": "钮祜禄"
+        }
+      ],
+      "controls": {
+        "playKey": "W",
+        "playLabel": "继续"
+      },
+      "onEnd": {
+        "next": "RESULT"
+      },
+      "wheelRules": {
+        "allowed": [
+          "nianzhuohua",
+          "anchunxiao",
+          "niuhulu"
+        ]
+      },
+      "events": [
+        {
+          "at": 1000,
+          "wantedLevel": 5,
+          "toast": "大清限定：六星通缉"
+        },
+        {
+          "at": 2000,
+          "eventPopup": {
+            "title": "年氏集团军火补给已到账",
+            "sub": "弹药充足",
+            "duration": 2000
+          }
+        }
+      ]
+    },
+    "RESULT": {
+      "id": "RESULT",
+      "character": "nianzhuohua",
+      "location": "紫禁城 · 西门外",
+      "missionTitle": "终极抢劫：大清国库",
+      "objective": "任务完成",
+      "hud": [],
+      "controls": {},
+      "completeUI": {
+        "kicker": "任务完成",
+        "title": "大清国库大劫案",
+        "rows": [
+          {
+            "label": "劫获财物",
+            "value": "30,000,000两"
+          },
+          {
+            "label": "团队集结",
+            "value": "3/3"
+          },
+          {
+            "label": "队友已接应",
+            "value": "安春晓"
+          },
+          {
+            "label": "最高通缉等级",
+            "value": "六星（大清限定）"
+          },
+          {
+            "label": "皇帝好感度",
+            "value": "-999"
+          },
+          {
+            "label": "追捕状态",
+            "value": "已脱离"
+          }
+        ]
+      },
+      "wheelRules": {
+        "allowed": [
+          "anchunxiao",
+          "nianzhuohua",
+          "niuhulu"
+        ]
+      },
+      "events": []
+    }
+  }
+}

@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GTA：大清合伙人 · 互动电影 Demo</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23ffd200' d='M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="game-hud.css">
+  <link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=Anton&family=Noto+Sans+SC:wght@400;500;700;900&display=swap">
+</head>
+<body>
+<div id="game">
+
+  <!-- ============ 视频层 ============ -->
+  <video id="video-player" playsinline preload="auto" tabindex="-1"></video>
+  <section id="preview-background" aria-label="缺少视频素材"><p>缺少视频素材</p><strong id="missing-video-file"></strong><small id="missing-video-path"></small></section>
+  <div id="video-fallback">
+    <div class="vf-badge">VIDEO PLACEHOLDER</div>
+    <div class="vf-line">节点：<span id="vf-node-id">—</span></div>
+    <div class="vf-line vf-file">需要文件：<span id="vf-file-path">—</span></div>
+  </div>
+
+  <!-- 电影模式黑边 -->
+  <div class="letterbox letterbox-top"></div>
+  <div class="letterbox letterbox-bottom"></div>
+
+  <!-- ============ HUD 覆盖层（GTA V 式克制布局） ============ -->
+  <div id="hud" class="hidden">
+
+    <!-- 左上：临时交互 / 教程提示（黑半透明 + 白键帽 + 白字） -->
+    <div id="interact-prompt">
+      <span class="ip-key">W</span><span id="interact-text"></span>
+    </div>
+
+    <!-- 当前任务：保持中央画面通透 -->
+    <aside id="current-task" aria-label="当前任务">
+      <div class="active-character">
+        <img id="active-portrait" src="assets/portraits/anchunxiao.png" alt="">
+        <div><div id="active-name"></div><div id="active-role"></div></div>
+      </div>
+      <div id="current-objective"></div>
+      <div id="current-subobjective"></div>
+    </aside>
+
+    <nav id="playthrough-toolbar" aria-label="游戏控制">
+      <button id="btn-journal" type="button">剧情记录 <kbd>J</kbd></button>
+      <button id="btn-pause" type="button">暂停 <kbd>P</kbd></button>
+      <button id="btn-game-sound" type="button">声音 <kbd>M</kbd></button>
+      <button id="btn-game-fullscreen" type="button">全屏 <kbd>F</kbd></button>
+    </nav>
+
+    <section id="scene-preview" aria-label="当前片段">
+      <div class="scene-heading"><span id="scene-number"></span><span id="scene-state"></span></div>
+      <h2 id="scene-title"></h2>
+      <p id="scene-description"></p>
+      <div class="scene-timing"><span>片段进度</span><span><b id="scene-elapsed">0:00</b> / <span id="scene-duration">0:00</span></span></div>
+      <progress id="scene-progress" max="100" value="0" aria-label="片段播放进度"></progress>
+      <div class="preview-actions">
+        <button id="preview-hold" type="button">W 前进</button>
+        <button id="preview-next" type="button" hidden>下一步 <kbd>Space</kbd></button>
+      </div>
+      <section id="console-tools" aria-label="游戏控制台校验">
+        <label><input id="console-log-enabled" type="checkbox" checked>实时校验日志（Console）</label>
+        <p>先打开 F12 → Console；手动按键时先点回游戏画面。</p>
+        <div><button id="run-console-tests" type="button" disabled>从头自动校验</button><button id="stop-console-tests" type="button" disabled>停止</button><button id="save-console-log" type="button">保存日志</button></div>
+        <output id="console-test-status">等待游戏数据</output>
+        <small>自动校验会从开头重跑并静音；停止后停在当前进度。</small>
+      </section>
+
+    </section>
+
+    <!-- 中央：任务标题横幅（任务开始 / 目标更新时短暂出现） -->
+    <div id="mission-banner">
+      <div id="mb-title"></div>
+      <div id="mb-objective"></div>
+    </div>
+
+    <!-- 右下：地点名（淡入 2~3 秒后淡出，无背景框） -->
+    <div id="zone-toast"></div>
+
+    <!-- 左下：小地图 + 距离 + 状态条（核心 GPS 识别器） -->
+    <div id="minimap-block">
+      <div id="distance-pill" class="hidden"><span id="distance-text"></span><i id="nitro-icon">N₂O</i></div>
+      <div id="minimap">
+        <svg id="map-svg" viewBox="0 0 200 200" preserveAspectRatio="xMidYMid slice"></svg>
+      </div>
+      <div id="map-location"></div>
+      <div id="bar-row">
+        <div class="bar health-bar"><i></i></div>
+        <div class="bar armor-bar"><i></i></div>
+        <div class="bar special-bar"><i></i></div>
+        <div class="map-north">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M6 18 L6 6 L18 18 L18 6" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="square" stroke-linejoin="miter"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- 右上：弹药（临时） / 金钱 / 通缉 -->
+    <div id="status-tr">
+      <div id="ammo-display" class="hidden"><span id="ammo-weapon"></span><span id="ammo-count"></span></div>
+      <div id="money"></div>
+      <div id="wanted"></div>
+      <div id="wanted-special" class="hidden">大清限定 · 六星通缉</div>
+    </div>
+
+    <!-- 左侧：随机事件弹窗 -->
+    <div id="event-popup"><div id="ep-title"></div><div id="ep-sub"></div></div>
+
+    <!-- 中央：系统提示弹窗（如弹药不足） -->
+    <div id="sys-modal"><div id="sm-title"></div><div id="sm-sub"></div></div>
+
+    <!-- 中央：载具启动弹窗 -->
+    <div id="vehicle-popup">
+      <div id="vp-title"></div>
+      <div id="vp-name"></div>
+      <div id="vp-stats"></div>
+    </div>
+
+    <!-- 中央：阶段完成 / 新阶段解锁（GTA 式简洁文字反馈） -->
+    <div id="stage-ui">
+      <div class="stage-card" id="stage-complete" role="dialog" aria-modal="true" aria-labelledby="sc-title" aria-describedby="result-summary" tabindex="-1">
+        <div class="stage-kicker" id="sc-kicker"></div>
+        <div class="stage-title" id="sc-title"></div>
+        <div class="stage-rows" id="sc-rows"></div>
+        <div class="stage-special" id="sc-special"></div>
+        <p id="result-summary"></p>
+        <div id="result-extra"></div>
+        <div class="result-actions" id="result-actions">
+          <button id="restart-chapter" type="button">再玩一局</button>
+          <button id="result-title-button" type="button">返回标题</button>
+        </div>
+      </div>
+      <div class="stage-card" id="stage-unlock">
+        <div class="stage-kicker" id="su-kicker"></div>
+        <div class="stage-handoff" id="su-handoff"></div>
+        <div class="stage-character" id="su-character"></div>
+        <div class="stage-stage" id="su-stage"></div>
+        <div class="stage-mission" id="su-mission"></div>
+        <div class="stage-desc" id="su-desc"></div>
+        <div class="stage-guard" id="su-guard"></div>
+        <button id="su-button" type="button"></button>
+      </div>
+    </div>
+
+    <!-- 右下：切换角色提示（上下文出现） -->
+    <div id="switch-hint">按 <b>Alt</b> 选择支援角色</div>
+
+    <!-- 顶部：按住进度条 -->
+    <div id="hold-progress"><span id="hold-label"></span><i><b id="hold-fill"></b></i></div>
+
+    <!-- 底部中央：选项按钮 -->
+    <div id="choice-caption" class="hidden">附近随机事件 · 保熟吗？</div>
+    <div id="choices"></div>
+
+    <!-- 底部中央：对白字幕 -->
+    <div id="dialogue">
+      <div id="speaker"></div>
+      <div id="dialogue-text"></div>
+    </div>
+
+    <!-- 通用提示 toast -->
+    <div id="toast"></div>
+
+    <!-- 结局标题卡 -->
+    <div id="ending-card"></div>
+
+    <!-- 任务完成弹窗（旧引擎兼容） -->
+    <div id="mission-complete">
+      <div class="mc-card">
+        <div class="mc-kicker">MISSION PASSED</div>
+        <div id="mc-name" class="mc-name"></div>
+        <div id="mc-reward" class="mc-reward"></div>
+        <button id="mc-confirm" type="button">继续（E）</button>
+      </div>
+    </div>
+
+    <section id="pause-menu" class="hidden" role="dialog" aria-modal="true" aria-labelledby="pause-heading">
+      <div class="chapter-dialog pause-card">
+        <h2 id="pause-heading">游戏已暂停</h2>
+        <p class="pause-intro">继续当前任务。</p>
+        <div class="pause-actions">
+          <button id="resume-game" type="button">继续游戏</button>
+          <button id="restart-game" type="button">重新开始</button>
+          <button id="pause-title" type="button">返回标题</button>
+        </div>
+        <dl class="chapter-controls">
+          <div><dt><kbd>W</kbd></dt><dd>前进</dd></div>
+          <div><dt><kbd>鼠标左键</kbd></dt><dd>射击</dd></div>
+          <div><dt><kbd>H</kbd></dt><dd>显示 / 隐藏测试面板</dd></div>
+          <div id="preview-next-control" hidden><dt><kbd>Space</kbd></dt><dd>下一步</dd></div>
+          <div><dt><kbd>E</kbd></dt><dd>互动 / 确认选择</dd></div>
+          <div><dt><kbd>Alt</kbd></dt><dd>选择支援角色</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <section id="mission-journal" class="hidden" role="dialog" aria-modal="true" aria-labelledby="journal-heading">
+      <div class="chapter-dialog journal-card">
+        <div class="journal-heading-row"><h2 id="journal-heading">剧情记录</h2><span>本局已发生的事件</span></div>
+        <div id="journal-list" tabindex="0" aria-label="剧情记录列表"></div>
+        <button id="close-journal" type="button">返回游戏</button>
+      </div>
+    </section>
+
+    <!-- ============ 以下为常驻面板（已隐藏，仅保留供 JS 引用） ============ -->
+    <!-- 旧：左上角色资料面板 -->
+    <div id="mission-panel" class="legacy-hidden">
+      <div id="character-chip">
+        <img id="chip-avatar" src="assets/portraits/niuhulu.png" alt="角色头像">
+        <span id="chip-name"></span>
+      </div>
+      <div id="mission-chapter"></div>
+      <div id="mission-objective"></div>
+      <div id="mission-subobjective"></div>
+      <div id="hud-extra"></div>
+      <div id="character-gear"></div>
+    </div>
+
+    <!-- 旧：右侧技能栏 -->
+    <div id="skill-bar" class="legacy-hidden">
+      <div class="skill-bar-title">技能</div>
+      <div id="skill-buttons"></div>
+    </div>
+
+    <!-- 旧：右下 WASD 教学 -->
+    <div id="wasd" class="legacy-hidden">
+      <div class="key k-w" data-key="w">W</div>
+      <div class="key k-a" data-key="a">A</div>
+      <div class="key k-s" data-key="s">S</div>
+      <div class="key k-d" data-key="d">D</div>
+    </div>
+
+    <!-- 旧：角落声音 / 全屏按钮（已隐藏，改用 M / F 键） -->
+    <div id="control-buttons" class="legacy-hidden">
+      <button id="btn-sound" type="button">声音：关</button>
+      <button id="btn-fullscreen" type="button">全屏</button>
+    </div>
+
+    <!-- Alt 角色切换轮盘（GTA5 式） -->
+    <div id="switch-wheel">
+      <div class="wheel-backdrop"></div>
+      <div class="wheel-disc">
+        <button class="wheel-seg" type="button" data-idx="0">
+          <img class="seg-avatar" src="assets/portraits/anchunxiao.png" alt="安春晓">
+          <span class="seg-number">1</span>
+          <span class="seg-name">安春晓</span>
+          <span class="seg-lock">当前任务不可用</span>
+        </button>
+        <button class="wheel-seg" type="button" data-idx="1">
+          <img class="seg-avatar" src="assets/portraits/niuhulu.png" alt="钮祜禄">
+          <span class="seg-number">2</span>
+          <span class="seg-name">钮祜禄</span>
+          <span class="seg-lock">当前任务不可用</span>
+        </button>
+        <button class="wheel-seg" type="button" data-idx="2">
+          <img class="seg-avatar" src="assets/portraits/nianzhuohua.png" alt="年灼华">
+          <span class="seg-number">3</span>
+          <span class="seg-name">年灼华</span>
+          <span class="seg-lock">当前任务不可用</span>
+        </button>
+        <div class="wheel-center">
+          <div class="wheel-center-title">角色切换</div>
+          <div class="wheel-center-hint">1 / 2 / 3 选择</div>
+        </div>
+      </div>
+      <!-- 轮盘选中人物信息（仅当前选中人物显示） -->
+      <div id="wheel-info">
+        <div id="wi-name"></div>
+        <div id="wi-location"></div>
+        <div id="wi-ability"></div>
+      </div>
+      <div class="wheel-hint">按 <b>1 / 2 / 3</b> 选择 · <b>Alt / Esc</b> 关闭</div>
+    </div>
+  </div>
+
+  <!-- ============ 标题画面 ============ -->
+  <div id="title-screen">
+    <!-- 顶部标签：在线 / GTA+ / 故事（点击“故事”开始游戏） -->
+    <nav class="launcher-tabs">
+      <span class="launcher-tab" data-tab="online">在线</span>
+      <span class="launcher-tab" data-tab="gtaplus">GTA+</span>
+      <button id="start-btn" class="launcher-tab active" type="button">故事</button>
+    </nav>
+
+    <!-- 主横幅：banner 图 + 左侧 logo + 左下标题与简介 -->
+    <div class="launcher-banner">
+      <img class="banner-logo" src="assets/launcher-logo.png" alt="Grand Theft Auto">
+      <div class="banner-text">
+        <div class="banner-title">Grand Theft Auto 故事模式</div>
+        <div class="banner-desc">潜入朱墙金瓦、暗潮汹涌的紫禁城，体验安春晓、年灼华与钮祜禄的劫案故事。</div>
+      </div>
+    </div>
+
+    <!-- 底部栏：左下提示 + 右下快捷键 -->
+    <div class="launcher-footer">
+      <div class="footer-left">
+        <div class="footer-play">游玩 Grand Theft Auto 的故事模式。</div>
+        <div class="title-disclaimer">非商业技术演示（Parody Demo），与 Rockstar Games / Take-Two 无关</div>
+      </div>
+      <div class="footer-hints">
+        <span class="hint">退出<kbd>Esc</kbd></span>
+        <span class="hint">设置<kbd>P</kbd></span>
+        <span class="hint">移动标签<kbd>Q</kbd><kbd>E</kbd></span>
+        <span class="hint">继续故事模式<kbd class="kbd-enter">↵</kbd></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- GTA5 式角色切换演出 -->
+  <div id="switch-cutscene">
+    <div class="cs-stage cs-black cs-a"></div>
+    <div class="cs-stage cs-map">
+      <div class="aerial-map">
+        <div class="am-grid"></div>
+        <div class="am-title">紫禁城</div>
+        <div class="am-marker am-from"><span>安春晓</span></div>
+        <div class="am-marker am-to"><span>年灼华</span></div>
+      </div>
+    </div>
+    <div class="cs-stage cs-clouds"></div>
+    <div class="cs-stage cs-black cs-b"></div>
+    <div class="cutscene-copy" id="cutscene-copy"><div id="cutscene-caption"></div><div id="cutscene-target"></div></div>
+  </div>
+
+  <!-- GTA 式开场黑幕字幕（开始视频前约 5 秒） -->
+  <div id="opening-card">
+    <div id="opening-text"></div>
+  </div>
+
+  <!-- 黑场淡入淡出 -->
+  <div id="fade"></div>
+</div>
+
+<script src="preview-config.js"></script>
+<script src="runtime/radar-data.js"></script>
+<script src="runtime/radar-sequence.js"></script>
+<script src="runtime/mission-data.js"></script>
+<script src="runtime/hud-data.js"></script>
+<script src="runtime/icons.js"></script>
+<script src="game-radar.js"></script>
+<script src="runtime/weapon-art.js"></script>
+<script src="game-weapon.js"></script>
+<script src="game-hud.js"></script>
+<script src="game-console.js"></script>
+<script src="game-music.js"></script>
+<script src="game.js"></script>
+</body>
+</html>

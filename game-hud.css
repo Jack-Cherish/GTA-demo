@@ -1,0 +1,308 @@
+/* Gameplay HUD styles, scoped to the active chapter. */
+@font-face { font-family:"Qing Rounded";src:local("YouYuan"),local("幼圆");font-weight:400;font-display:swap; }
+#game.chapter-active.game-ui-hud { --game-ui-font:"Microsoft YaHei",Arial,sans-serif;--game-ui-yellow:#ebcc62; }
+#game.chapter-active.game-ui-hud::after { background:none; }
+#game.chapter-active.game-ui-hud #hud * { text-shadow:none;box-shadow:none;background-image:none;border-radius:0; }
+#game.chapter-active.game-ui-hud #current-task,
+#game.chapter-active.game-ui-hud #hold-progress,
+#game.chapter-active.game-ui-hud #wanted-special { display:none!important; }
+#game.chapter-active.game-ui-hud #scene-preview { display:none!important; }
+#game.chapter-active.game-ui-hud.show-test-tools #scene-preview { display:block!important; }
+#game.chapter-active.game-ui-hud #playthrough-toolbar { top:20px;left:50%;right:auto;transform:translateX(-50%);gap:1px; }
+#game.chapter-active.game-ui-hud #playthrough-toolbar[hidden] { display:none!important; }
+#game.chapter-active.game-ui-hud #playthrough-toolbar button { background:rgba(0,0,0,.8);border:0;color:#fff; }
+#game.chapter-active.game-ui-hud #playthrough-toolbar button:hover { background:#d1d1d1;color:#111; }
+#game.chapter-active.game-ui-hud #status-tr { top:3.3%;right:3%;gap:9px; }
+#game.chapter-active.game-ui-hud #wanted { order:0;display:flex;gap:0;animation:none; }
+#game.chapter-active.game-ui-hud .wanted-star { display:block;flex:0 0 clamp(23px,1.77vw,34px);width:clamp(23px,1.77vw,34px);height:clamp(23px,1.77vw,34px);fill:#29364b;overflow:visible; }
+#game.chapter-active.game-ui-hud .wanted-star path { stroke:#29364b;stroke-width:2.5px;vector-effect:non-scaling-stroke;stroke-linejoin:round; }
+#game.chapter-active.game-ui-hud .wanted-star.is-active { fill:#fff; }
+#game.chapter-active.game-ui-hud .wanted-star.is-active path { stroke:#000; }
+#game.chapter-active.game-ui-hud #ammo-display { order:1;opacity:1; }
+#game.chapter-active.game-ui-hud #ammo-weapon,
+#game.chapter-active.game-ui-hud #ammo-count { display:none; }
+#game.chapter-active.game-ui-hud #game-ui-ammo { display:flex;gap:12px;align-items:baseline;color:#fff;font-family:"Bahnschrift","Arial Narrow",Arial,sans-serif;font-weight:600;font-variant-numeric:tabular-nums;line-height:1; }
+#game.chapter-active.game-ui-hud .game-ui-ammo-reserve,
+#game.chapter-active.game-ui-hud .game-ui-ammo-clip { -webkit-text-stroke:3px #000;paint-order:stroke fill; }
+#game.chapter-active.game-ui-hud .game-ui-ammo-reserve { font-size:clamp(27px,1.98vw,38px); }
+#game.chapter-active.game-ui-hud .game-ui-ammo-clip { font-size:clamp(21px,1.41vw,27px);color:#c8c8c8;min-width:2ch;text-align:right; }
+#game.chapter-active.game-ui-hud #money { order:2;font:600 clamp(25px,1.98vw,38px)/1.35 Arial,var(--game-ui-font);color:#97c997;-webkit-text-stroke:3px #000;paint-order:stroke fill;letter-spacing:0; }
+#game.chapter-active.game-ui-hud #interact-prompt { top:3.3%;left:2.7%;max-width:min(590px,65vw);padding:8px 12px;gap:7px;background:rgba(0,0,0,.8);border:0;transform:none;animation:none;font:clamp(17px,1.25vw,24px)/1.55 var(--game-ui-font); }
+#game.chapter-active.game-ui-hud #interact-prompt::before { content:"按"; }
+#game.chapter-active.game-ui-hud #interact-text { font:inherit;letter-spacing:0; }
+#game.chapter-active.game-ui-hud .ip-key { min-width:24px;height:27px;padding:1px 5px;background:#d9d9d9;color:#000;font:20px/27px Arial,sans-serif;letter-spacing:0; }
+#game.chapter-active.game-ui-hud.game-ui-system-visible #interact-prompt { visibility:hidden; }
+#game.chapter-active.game-ui-hud #game-ui-objective { position:absolute;bottom:3.8%;left:50%;transform:translateX(-50%);text-align:center;width:max-content;max-width:90%;font:600 clamp(19px,1.56vw,30px)/1.5 var(--game-ui-font);color:#fff;-webkit-text-stroke:3px #000;paint-order:stroke fill;pointer-events:none; }
+#game.chapter-active.game-ui-hud #game-ui-objective[hidden] { display:none; }
+#game.chapter-active.game-ui-hud #game-ui-objective span { color:var(--game-ui-yellow); }
+#game.chapter-active.game-ui-hud #game-ui-objective small { display:block;font-size:.62em; }
+#game.chapter-active.game-ui-hud #dialogue { left:50%;bottom:3.8%;transform:translateX(-50%);text-align:center;width:min(1100px,88%);max-width:1100px;padding:0;background:none;border:0; }
+#game.chapter-active.game-ui-hud #speaker,
+#game.chapter-active.game-ui-hud #dialogue-text { display:inline;font:600 clamp(18px,1.41vw,27px)/1.5 var(--game-ui-font);-webkit-text-stroke:3px #000;paint-order:stroke fill;letter-spacing:0;color:#fff; }
+#game.chapter-active.game-ui-hud #speaker { color:#e5cd78; }
+#game.chapter-active.game-ui-hud #speaker:not(:empty)::after { content:"："; }
+#game.chapter-active.game-ui-hud #dialogue.radio #dialogue-text { font-style:normal;color:#fff; }
+#game.chapter-active.game-ui-hud #game-ui-radio { position:absolute;left:50%;top:5%;transform:translateX(-50%);text-align:center;width:250px;color:#fff;font-family:var(--game-ui-font); }
+#game.chapter-active.game-ui-hud #game-ui-radio[hidden] { display:none; }
+#game.chapter-active.game-ui-hud .game-ui-radio-symbol { width:84px;height:84px;padding:13px 8px;border:3px solid #ddd;border-radius:50%!important;background:rgba(0,0,0,.72);margin:0 auto 7px; }
+#game.chapter-active.game-ui-hud .game-ui-radio-symbol svg { width:100%;height:100%; }
+#game.chapter-active.game-ui-hud #game-ui-radio strong { display:block;font-size:22px;-webkit-text-stroke:3px #000;paint-order:stroke fill; }
+#game.chapter-active.game-ui-hud #game-ui-radio span { font-size:15px;-webkit-text-stroke:3px #000;paint-order:stroke fill; }
+#game.chapter-active.game-ui-hud #event-popup { left:2.7%;bottom:29%;top:auto;width:320px;max-width:65%;padding:12px 12px 12px 86px;min-height:100px;background:rgba(0,0,0,.76);border:0;transform:none;text-align:left; }
+#game.chapter-active.game-ui-hud #ep-title { font:500 17px/1.35 var(--game-ui-font);color:#fff;letter-spacing:0;margin:0 0 7px; }
+#game.chapter-active.game-ui-hud #ep-sub { font:400 15px/1.45 var(--game-ui-font);color:#ddd;letter-spacing:0; }
+#game.chapter-active.game-ui-hud #game-ui-event-art > .equipment-icon { position:absolute;left:12px;top:16px;width:60px;height:60px; }
+#game.chapter-active.game-ui-hud .equipment-icon .detail { fill:none;stroke:#e5e5e5;stroke-width:1.4; }
+#game.chapter-active.game-ui-hud #sys-modal { top:3.3%;left:2.7%;transform:none;width:max-content;min-width:0;max-width:min(620px,83%);padding:14px 18px;text-align:left;background:rgba(0,0,0,.87);border:0; }
+#game.chapter-active.game-ui-hud #sm-title { font:600 clamp(21px,1.5vw,29px)/1.45 "YouYuan","幼圆",var(--game-ui-font);letter-spacing:0;color:#fff;margin:0 0 3px; }
+#game.chapter-active.game-ui-hud #sm-sub { font:400 clamp(18px,1.35vw,26px)/1.5 "YouYuan","幼圆",var(--game-ui-font);letter-spacing:0;color:#fff; }
+#game.chapter-active.game-ui-hud #zone-toast { right:3.5%;bottom:4.8%;font:800 italic clamp(27px,2.4vw,46px)/1.3 var(--game-ui-font);-webkit-text-stroke:3px #000;paint-order:stroke fill;letter-spacing:2px; }
+#game.chapter-active.game-ui-hud #vehicle-popup { inset:0;transform:none;width:100%;max-width:none;background:none;padding:0;border:0;pointer-events:none; }
+#game.chapter-active.game-ui-hud #vp-title,
+#game.chapter-active.game-ui-hud #vp-name,
+#game.chapter-active.game-ui-hud #vp-stats { display:none; }
+#game.chapter-active.game-ui-hud .game-ui-vehicle-name { position:absolute;right:3.5%;bottom:4.8%;text-align:right;-webkit-text-stroke:3px #000;paint-order:stroke fill; }
+#game.chapter-active.game-ui-hud .game-ui-vehicle-name h2 { font:700 italic clamp(27px,1.98vw,38px)/1.25 var(--game-ui-font);margin:0 0 4px; }
+#game.chapter-active.game-ui-hud .game-ui-vehicle-name p { font:25px var(--game-ui-font); }
+#game.chapter-active.game-ui-hud .game-ui-vehicle-notice { position:absolute;left:2.7%;bottom:29%;width:320px;padding:12px;background:rgba(0,0,0,.76);text-align:left;font:17px/1.5 var(--game-ui-font); }
+#game.chapter-active.game-ui-hud .game-ui-vehicle-notice strong { font-weight:500; }
+#game.chapter-active.game-ui-hud .game-ui-vehicle-notice p { font-size:15px;color:#ddd;margin-top:7px; }
+#game.chapter-active.game-ui-hud #mission-banner { left:0;top:12%;width:100%;transform:none; }
+#game.chapter-active.game-ui-hud #mission-banner[data-kind="objective"] { display:none; }
+#game.chapter-active.game-ui-hud #mb-title,
+#game.chapter-active.game-ui-hud #mb-objective { display:none; }
+#game.chapter-active.game-ui-hud .game-ui-mission-svg { display:block;width:100%;height:auto;overflow:visible; }
+#game.chapter-active.game-ui-hud .game-ui-mission-svg text { fill:#fff;font-family:"Qing Rounded","YouYuan","幼圆",sans-serif;font-weight:400;font-synthesis:none; }
+#game.chapter-active.game-ui-hud .game-ui-mission-title { font-size:104px;letter-spacing:2px; }
+#game.chapter-active.game-ui-hud .game-ui-mission-subtitle { font-size:28px; }
+#game.chapter-active.game-ui-hud .game-ui-mission-rule { stroke:#fff;stroke-width:1.5;opacity:.9; }
+#game.chapter-active.game-ui-hud .game-ui-stat-label,
+#game.chapter-active.game-ui-hud .game-ui-stat-value { font-size:23px; }
+#game.chapter-active.game-ui-hud .game-ui-total-label,
+#game.chapter-active.game-ui-hud .game-ui-total-value { font-size:25px; }
+#game.chapter-active.game-ui-hud #event-popup.game-ui-side-result { left:0;top:8%;bottom:auto;width:100%;max-width:none;padding:0;background:none; }
+#game.chapter-active.game-ui-hud #event-popup.game-ui-side-result #ep-title,
+#game.chapter-active.game-ui-hud #event-popup.game-ui-side-result #ep-sub { display:none; }
+#game.chapter-active.game-ui-hud #stage-complete { position:absolute;left:0;right:0;top:8%;transform:none;width:100%;max-width:none;padding:0;background:none;border:0; }
+#game.chapter-active.game-ui-hud.chapter-complete #stage-ui { display:block;padding:0;background:transparent; }
+#game.chapter-active.game-ui-hud #sc-kicker,
+#game.chapter-active.game-ui-hud #sc-title,
+#game.chapter-active.game-ui-hud #sc-rows,
+#game.chapter-active.game-ui-hud #sc-special { display:none!important; }
+#game.chapter-active.game-ui-hud #result-summary { font:16px/1.5 var(--game-ui-font);margin:15px auto 10px; }
+#game.chapter-active.game-ui-hud #result-extra { display:flex;justify-content:center;gap:25px;width:min(800px,90%);margin:0 auto 18px;flex-wrap:wrap; }
+#game.chapter-active.game-ui-hud #result-extra .sr { display:flex;gap:8px;border:0;padding:0;font-size:12px; }
+#game.chapter-active.game-ui-hud #result-actions { justify-content:center; }
+#game.chapter-active.game-ui-hud #result-actions button { background:#ddd;color:#111;border:0;font-size:15px;padding:10px 22px; }
+#game.chapter-active.game-ui-hud #choices { left:auto;right:3%;top:calc(18% + 62px);bottom:auto;transform:none;width:365px;max-width:80%;display:block;background:rgba(0,0,0,.8); }
+#game.chapter-active.game-ui-hud #choice-caption { top:18%;right:3%;left:auto;bottom:auto;transform:none;width:365px;max-width:80%;padding:16px 18px 14px;background:rgba(0,0,0,.8);font:24px/1.35 var(--game-ui-font);text-align:left; }
+#game.chapter-active.game-ui-hud .choice-btn { width:100%;min-height:55px;border:0;border-top:1px solid #ffffff24;background:none;padding:10px 15px;font:18px/1.4 var(--game-ui-font); }
+#game.chapter-active.game-ui-hud .choice-btn:hover,
+#game.chapter-active.game-ui-hud .choice-btn:focus-visible { background:#d1d1d1;color:#111; }
+#game.chapter-active.game-ui-hud .choice-badge { background:#d9d9d9;color:#000;font:20px/27px Arial,sans-serif;min-width:24px;height:27px; }
+#game.chapter-active.game-ui-hud #toast { top:16%;background:rgba(0,0,0,.8);border:0;font:18px/1.5 var(--game-ui-font);padding:10px 15px; }
+#game.chapter-active.game-ui-hud #switch-hint { bottom:3.8%;right:3%;font:17px/1.5 var(--game-ui-font);background:rgba(0,0,0,.8);border:0;padding:8px 12px; }
+#game.chapter-active.game-ui-hud .wheel-disc,
+#game.chapter-active.game-ui-hud #wheel-info,
+#game.chapter-active.game-ui-hud .wheel-hint { display:none!important; }
+#game.chapter-active.game-ui-hud .wheel-backdrop { background:transparent; }
+#game.chapter-active.game-ui-hud #game-ui-character-wheel { position:absolute;right:36px;bottom:30px;width:clamp(235px,25.93vh,280px);height:clamp(235px,25.93vh,280px);user-select:none; }
+#game.chapter-active.game-ui-hud #game-ui-character-disc { display:block;width:100%;height:100%;outline:none;overflow:visible; }
+#game.chapter-active.game-ui-hud #video-fallback { background:#111; }
+#game.chapter-active.game-ui-hud #switch-cutscene .cs-clouds { background:#777; }
+#game.chapter-active.game-ui-hud #switch-cutscene .am-grid { display:none; }
+#game.chapter-active.game-ui-hud #game-ui-aerial-map { position:absolute;inset:0; }
+#game.chapter-active.game-ui-hud #game-ui-aerial-map svg { width:100%;height:100%;background:#393837; }
+#game.chapter-active.game-ui-hud #minimap-block { left:2.7%;bottom:4.5%;width:clamp(190px,16.15vw,310px); }
+#game.chapter-active.game-ui-hud #minimap,
+#game.chapter-active.game-ui-hud #map-location,
+#game.chapter-active.game-ui-hud #bar-row,
+#game.chapter-active.game-ui-hud #distance-pill { display:none!important; }
+#game.chapter-active.game-ui-hud #game-ui-radar { width:100%; }
+#game.chapter-active.game-ui-hud #game-ui-radar[hidden] { display:none; }
+#game.chapter-active.game-ui-hud .mini-map { width:100%;background:#393837;border:2px solid #252525; }
+#game.chapter-active.game-ui-hud .mini-map .map-svg { display:block;width:100%;height:auto;aspect-ratio:200/145;overflow:hidden; }
+#game.chapter-active.game-ui-hud .mini-map .bar-svg { display:block;width:100%;height:auto;aspect-ratio:310/12; }
+#game.chapter-active.game-ui-hud.preview-mode #preview-background { display:flex;flex-direction:column;align-items:center;justify-content:center;gap:15px;background:#303234;color:#f0f0f0;text-align:center;padding:30px; }
+#game.chapter-active.game-ui-hud #preview-background p { font:18px var(--game-ui-font);color:#bcbec1; }
+#game.chapter-active.game-ui-hud #preview-background strong { font:500 clamp(24px,2vw,38px)/1.4 "Bahnschrift",Arial,sans-serif;overflow-wrap:anywhere; }
+#game.chapter-active.game-ui-hud #preview-background small { font:14px/1.5 Arial,sans-serif;color:#a7aaae;overflow-wrap:anywhere; }
+#game.chapter-active.game-ui-hud #game-ui-objective,
+#game.chapter-active.game-ui-hud #dialogue { white-space:nowrap; }
+#game.chapter-active.game-ui-hud #dialogue[hidden] { display:none!important; }
+#game.chapter-active.game-ui-hud #money { pointer-events:auto;cursor:context-menu; }
+#game.chapter-active.game-ui-hud #game-ui-cash-editor { position:absolute;left:50%;top:42%;transform:translate(-50%,-50%);z-index:85;width:min(460px,90vw);padding:22px;background:#090909;color:#fff;border:1px solid #666;display:grid;gap:12px;font:15px/1.5 var(--game-ui-font); }
+#game.chapter-active.game-ui-hud #game-ui-cash-editor[hidden] { display:none!important; }
+#game.chapter-active.game-ui-hud #game-ui-cash-editor h2 { font-size:24px;font-weight:500;margin:0; }
+#game.chapter-active.game-ui-hud #cash-display-value { width:100%;padding:9px;background:#222;color:#fff;border:1px solid #aaa;font:24px Arial,sans-serif;user-select:text; }
+#game.chapter-active.game-ui-hud #game-ui-cash-editor p { color:#aaa;font-size:12px; }
+#game.chapter-active.game-ui-hud #game-ui-cash-editor > div { display:flex;flex-wrap:wrap;gap:6px; }
+#game.chapter-active.game-ui-hud #game-ui-cash-editor button { padding:7px 11px;border:0;background:#d1d1d1;color:#111;font:14px var(--game-ui-font);cursor:pointer; }
+#game.chapter-active.game-ui-hud #cash-display-error { color:#f2a29e; }
+#game.chapter-active.game-ui-hud #game-weapon-panel { position:absolute;inset:0;z-index:45;font-family:var(--game-ui-font);--hud-font:var(--game-ui-font); }
+#game.chapter-active.game-ui-hud #game-weapon-panel[hidden] { display:none!important; }
+#game.chapter-active.game-ui-hud .game-weapon-slot.is-unavailable { opacity:.22; }
+#game.chapter-active.game-ui-hud .game-weapon-slot.is-available { cursor:pointer; }
+#game.chapter-active.game-ui-hud.equipment-selecting #status-tr,
+#game.chapter-active.game-ui-hud.equipment-selecting #interact-prompt { visibility:hidden; }
+#game.chapter-active.game-ui-hud.equipment-selecting #video-player,
+#game.chapter-active.game-ui-hud.equipment-selecting #preview-background { filter:saturate(.42) brightness(.62); }
+#game.chapter-active.game-ui-hud .game-weapon-confirm { position:absolute;left:50%;bottom:10%;transform:translateX(-50%);padding:8px 12px;background:rgba(0,0,0,.8);white-space:nowrap;color:#fff;font:17px var(--game-ui-font); }
+#game.chapter-active.game-ui-hud .game-weapon-confirm kbd { display:inline-block;background:#ddd;color:#000;padding:2px 5px;font:16px Arial,sans-serif; }
+#game.chapter-active.game-ui-hud .pause-card { width:min(1120px,92vw);padding:0;display:grid;grid-template-columns:minmax(0,1fr) 270px;gap:0;background:#080808;border:0; }
+#game.chapter-active.game-ui-hud .pause-card #pause-heading { grid-column:1/-1;grid-row:1;padding:17px 24px 13px;font:500 30px var(--game-ui-font);margin:0; }
+#game.chapter-active.game-ui-hud #game-ui-pause-map { grid-column:1;grid-row:2/6;min-width:0;background:#393837; }
+#game.chapter-active.game-ui-hud #game-ui-pause-map .map-svg { display:block;width:100%;height:min(55vh,600px);overflow:hidden; }
+#game.chapter-active.game-ui-hud .game-ui-pause-tabs { display:flex;gap:4px;background:#080808;border-top:1px solid #444; }
+#game.chapter-active.game-ui-hud .game-ui-pause-tabs span { padding:10px 25px 6px;font-size:17px;color:#aaa; }
+#game.chapter-active.game-ui-hud .game-ui-pause-tabs span:first-child { color:#fff;border-top:4px solid #fff;padding-top:6px; }
+#game.chapter-active.game-ui-hud .pause-card .pause-intro { grid-column:2;grid-row:2;padding:16px;margin:0;font:16px/1.5 var(--game-ui-font);color:#fff; }
+#game.chapter-active.game-ui-hud .pause-card .pause-actions { grid-column:2;grid-row:3;padding:0 16px;margin:0;gap:4px; }
+#game.chapter-active.game-ui-hud .pause-card .chapter-controls { grid-column:2;grid-row:4;padding:16px;margin:0;border:0;gap:8px; }
+#game.chapter-active.game-ui-hud .pause-card button { background:transparent;color:#fff;border:0;text-align:left;padding:10px 12px; }
+#game.chapter-active.game-ui-hud .pause-card button:hover,
+#game.chapter-active.game-ui-hud .pause-card button:focus-visible { background:#d1d1d1;color:#111; }
+#game.chapter-active.game-ui-hud .pause-card #resume-game { background:#d1d1d1;color:#111; }
+#game.chapter-active.game-ui-hud #game-ui-progress { grid-column:2;grid-row:5;display:grid;gap:8px;padding:16px;border-top:1px solid #444;font:15px var(--game-ui-font); }
+#game.chapter-active.game-ui-hud #game-progress { width:100%;min-width:0;background:#222;border:1px solid #888;padding:8px;color:#fff;font:14px var(--game-ui-font); }
+#game.chapter-active.game-ui-hud #jump-progress { background:#d1d1d1;color:#111;text-align:center;cursor:pointer; }
+#game.chapter-active.game-ui-hud.chapter-complete #pause-menu:not(.hidden) { display:flex!important;z-index:90; }
+@media(max-height:800px) { #game.chapter-active.game-ui-hud .pause-card .chapter-controls { display:none; } }
+@media(max-width:800px) {
+  #game.chapter-active.game-ui-hud .pause-card { grid-template-columns:minmax(0,1fr) 210px; }
+  #game.chapter-active.game-ui-hud #game-ui-radio { top:4%;transform:translateX(-50%) scale(.75);transform-origin:top; }
+  #game.chapter-active.game-ui-hud #event-popup { bottom:33%;width:280px; }
+  #game.chapter-active.game-ui-hud #game-ui-character-wheel { right:18px;bottom:18px;width:225px;height:225px; }
+  #game.chapter-active.game-ui-hud #result-summary { font-size:13px; }
+  #game.chapter-active.game-ui-hud #result-extra { margin-bottom:10px;gap:10px; }
+}
+
+#game.chapter-active.game-ui-hud .wheel-base { fill: rgba(0, 0, 0, .86); }
+
+#game.chapter-active.game-ui-hud .character-sector { --character-color: #59a9d0; }
+
+#game.chapter-active.game-ui-hud .character-right { --character-color: #d99853; }
+
+#game.chapter-active.game-ui-hud .character-bottom { --character-color: #7db060; }
+
+#game.chapter-active.game-ui-hud .sector-tint { fill: transparent; }
+
+#game.chapter-active.game-ui-hud .character-sector[aria-selected="true"] .sector-tint { fill: var(--character-color); fill-opacity: .38; }
+
+#game.chapter-active.game-ui-hud .character-portrait { opacity: .76; }
+
+#game.chapter-active.game-ui-hud .character-sector[aria-selected="true"] .character-portrait { opacity: 1; }
+
+#game.chapter-active.game-ui-hud .character-arc { fill: none; stroke: var(--character-color); stroke-width: 4; opacity: .38; }
+
+#game.chapter-active.game-ui-hud .character-sector[aria-selected="true"] .character-arc { stroke-width: 5; opacity: 1; }
+
+#game.chapter-active.game-ui-hud .wheel-character-name { fill: #fff; font-family: "Microsoft YaHei", sans-serif; font-size: 17px; font-weight: 600; letter-spacing: 1px; pointer-events: none; }
+
+#game.chapter-active.game-ui-hud .wheel-center-point { fill: rgba(255,255,255,.5); pointer-events: none; }
+
+#game.chapter-active.game-ui-hud .map-label { font:6px var(--hud-font); fill:#ddd; stroke:#222; stroke-width:.6; paint-order:stroke fill; text-anchor:middle; }
+
+#game.chapter-active.game-ui-hud .map-route { fill:none; stroke:#ebcc62; stroke-width:2.1; stroke-linejoin:round; stroke-linecap:round; }
+
+#game.chapter-active.game-ui-hud .map-player { fill:white; stroke:black; stroke-width:.8; }
+
+#game.chapter-active.game-ui-hud .map-north { font:700 9px Arial,sans-serif; fill:white; stroke:black; stroke-width:1.4; paint-order:stroke fill; }
+
+#game.chapter-active.game-ui-hud .map-compass-letter { font:400 10px Arial,sans-serif; fill:#fff; text-anchor:middle; }
+
+#game.chapter-active.game-ui-hud .map-nav-arrow { fill:#ddd; stroke:#17191c; stroke-width:.65; stroke-linejoin:round; }
+
+#game.chapter-active.game-ui-hud .map-distance { fill:#f4f4f4; stroke:#101214; stroke-width:1.3; paint-order:stroke fill; font:400 14px "Bahnschrift","Arial Narrow",Arial,sans-serif; font-variant-numeric:tabular-nums; }
+
+#game.chapter-active.game-ui-hud .map-distance-unit { font-size:12px; }
+
+#game.chapter-active.game-ui-hud .radar-road-edge path { fill:#676762; }
+
+#game.chapter-active.game-ui-hud .radar-road-surface path { fill:#a29f96; }
+
+#game.chapter-active.game-ui-hud .radar-perspective { background:#393837; }
+
+#game.chapter-active.game-ui-hud .radar-overview { background:#393837; }
+
+#game.chapter-active.game-ui-hud .radar-place-label { font:6px "Microsoft YaHei",Arial,sans-serif; fill:#dedbd4; text-anchor:middle; stroke:#33312f; stroke-width:1; paint-order:stroke fill; pointer-events:none; }
+
+#game.chapter-active.game-ui-hud .radar-landmark-label { font:6px "Microsoft YaHei",Arial,sans-serif; fill:#f3eee0; stroke:#20201e; stroke-width:1.3; paint-order:stroke fill; pointer-events:none; }
+
+#game.chapter-active.game-ui-hud .character-sector[aria-disabled="true"] .character-portrait {filter:grayscale(1);opacity:.28;}
+#game.chapter-active.game-ui-hud .character-sector[aria-disabled="true"] .character-arc {opacity:.2;}
+
+#game.chapter-active.game-ui-hud .weapon-disc { position:absolute; width:min(68vh,64vw,740px); height:auto; aspect-ratio:1; left:50%; top:47%; transform:translate(-50%,-50%); }
+
+#game.chapter-active.game-ui-hud .weapon-base { fill:rgba(0,0,0,.13); }
+
+#game.chapter-active.game-ui-hud .weapon-sector { fill:transparent; stroke:none; }
+
+#game.chapter-active.game-ui-hud .weapon-sector.is-selected { fill:rgba(30,75,104,.12); }
+
+#game.chapter-active.game-ui-hud .weapon-selection-band { fill:rgba(50,133,189,.38); pointer-events:none; }
+
+#game.chapter-active.game-ui-hud .weapon-boundary { fill:none; stroke:rgba(15,18,20,.86); stroke-width:2.4; pointer-events:none; }
+
+#game.chapter-active.game-ui-hud .weapon-selection-edge { fill:none; stroke:#368ac3; stroke-width:5; pointer-events:none; }
+
+#game.chapter-active.game-ui-hud .weapon-divider { fill:none; stroke:rgba(225,225,225,.33); stroke-width:1.25; pointer-events:none; }
+
+#game.chapter-active.game-ui-hud .weapon-label { fill:white; stroke:#101010; stroke-width:2.4; paint-order:stroke fill; font:500 23px var(--hud-font); text-anchor:middle; pointer-events:none; }
+
+#game.chapter-active.game-ui-hud .weapon-caption { font:21px Arial,sans-serif; }
+
+#game.chapter-active.game-ui-hud .weapon-attachment { font:18px var(--hud-font); fill:#c6c6c6; }
+
+#game.chapter-active.game-ui-hud .weapon-counter { fill:#fff; stroke:#141414; stroke-width:2.2; paint-order:stroke fill; font:500 20px Arial,sans-serif; text-anchor:middle; }
+
+#game.chapter-active.game-ui-hud .weapon-counter-clip { fill:#d1d1d1; font-size:18px; }
+
+#game.chapter-active.game-ui-hud .weapon-arrow { fill:#5b9fcb; stroke:#1c272e; stroke-width:.8; pointer-events:none; }
+
+#game.chapter-active.game-ui-hud .weapon-art .metal { fill:#9da3a7; }
+
+#game.chapter-active.game-ui-hud .weapon-art .light { fill:#c6cbcd; }
+
+#game.chapter-active.game-ui-hud .weapon-art .dark { fill:#454b4f; }
+
+#game.chapter-active.game-ui-hud .weapon-art .rivet { fill:#c2c7c9; stroke:#303538; stroke-width:.8; }
+
+#game.chapter-active.game-ui-hud .weapon-art .fine { fill:none; stroke:#c5cccf; stroke-width:.8; }
+
+#game.chapter-active.game-ui-hud .weapon-art .edge { fill:none; stroke:#303639; stroke-width:1.9; }
+
+#game.chapter-active.game-ui-hud .weapon-ammo { position:absolute; right:3.2%; top:2.3%; display:flex; align-items:baseline; gap:7px; font:600 29px Arial,sans-serif; -webkit-text-stroke:2.5px #000; font-variant-numeric:tabular-nums; }
+
+#game.chapter-active.game-ui-hud .weapon-ammo small { color:#c8c8c8; font-size:23px; font-weight:500; }
+
+#game.chapter-active.game-ui-hud .weapon-stats { position:absolute; top:6.2%; right:3.2%; width:225px; padding:8px 10px 10px; background:rgba(0,0,0,.73); }
+
+#game.chapter-active.game-ui-hud .weapon-stat-row { margin-bottom:6px; font-size:17px; line-height:1.25; }
+
+#game.chapter-active.game-ui-hud .weapon-stat-row:last-child { margin:0; }
+
+#game.chapter-active.game-ui-hud .weapon-stat-track { position:relative; height:5px; margin-top:3px; background:#636363; overflow:hidden; }
+
+#game.chapter-active.game-ui-hud .weapon-stat-track span { display:block; height:100%; background:#c6c8c9; }
+
+#game.chapter-active.game-ui-hud .weapon-stat-track i { position:absolute; top:0; bottom:0; width:1px; background:#303030; opacity:.7; }
+
+#game.chapter-active.game-ui-hud .weapon-stat-track i:nth-of-type(1) { left:25%; }
+
+#game.chapter-active.game-ui-hud .weapon-stat-track i:nth-of-type(2) { left:50%; }
+
+#game.chapter-active.game-ui-hud .weapon-stat-track i:nth-of-type(3) { left:75%; }
+
+#game.chapter-active.game-ui-hud .ip-key { white-space:nowrap;width:max-content;flex-shrink:0; }
+
+#game.chapter-active.game-ui-hud #scene-preview { max-height:calc(100dvh - 120px);overflow:auto; }
+#game.chapter-active.game-ui-hud #console-tools { margin-top:14px;padding-top:12px;border-top:1px solid #555;font:12px/1.6 var(--game-ui-font); }
+#game.chapter-active.game-ui-hud #console-tools label { display:flex;gap:7px;align-items:center; }
+#game.chapter-active.game-ui-hud #console-tools input { accent-color:#ddd; }
+#game.chapter-active.game-ui-hud #console-tools p { margin:6px 0;color:#bbb;font:11px/1.6 var(--game-ui-font); }
+#game.chapter-active.game-ui-hud #console-tools > div { display:flex;gap:5px;flex-wrap:wrap;margin:9px 0; }
+#game.chapter-active.game-ui-hud #console-tools button { background:#ddd;color:#111;border:0;padding:7px 9px;font:12px var(--game-ui-font);cursor:pointer; }
+#game.chapter-active.game-ui-hud #console-tools button:disabled { opacity:.4;cursor:default; }
+#game.chapter-active.game-ui-hud #console-tools output { display:block;color:#a8d6a8; }
+#game.chapter-active.game-ui-hud #console-tools small { display:block;color:#aaa;font-size:10px;margin-top:5px; }

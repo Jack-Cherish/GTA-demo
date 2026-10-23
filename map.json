@@ -1,0 +1,125 @@
+{
+  "meta": {
+    "title": "紫禁城 · 小地图（数据驱动 SVG）",
+    "viewBox": 200,
+    "version": "1.0.0",
+    "note": "现代 GPS 风格，道路为灰白、建筑为深灰；玩家白色三角、目标彩色点、路线黄色导航线。"
+  },
+  "palette": {
+    "background": "#0c0e11",
+    "building": "#23272d",
+    "buildingEdge": "#2f343b",
+    "road": "#3b4047",
+    "roadEdge": "#4a5058",
+    "route": "#f5c518",
+    "player": "#ffffff",
+    "goal": "#ff4d4d",
+    "sideGoal": "#7fb2ff"
+  },
+  "buildings": [
+    { "x": 10, "y": 10, "w": 82, "h": 82 },
+    { "x": 108, "y": 10, "w": 82, "h": 82 },
+    { "x": 10, "y": 108, "w": 82, "h": 27 },
+    { "x": 10, "y": 152, "w": 82, "h": 38 },
+    { "x": 108, "y": 108, "w": 34, "h": 82 },
+    { "x": 162, "y": 108, "w": 28, "h": 82 }
+  ],
+  "roads": [
+    { "x": 92, "y": 10, "w": 16, "h": 180 },
+    { "x": 10, "y": 92, "w": 180, "h": 16 },
+    { "x": 40, "y": 60, "w": 120, "h": 10 },
+    { "x": 128, "y": 60, "w": 10, "h": 40 }
+  ],
+  "nodes": {
+    "HEIST_INTRO": {
+      "x": 100, "y": 45, "rot": 0,
+      "goal": { "x": 100, "y": 45 },
+      "route": [],
+      "sideBlips": []
+    },
+    "HEIST_GRAB": {
+      "x": 100, "y": 45, "rot": 0,
+      "goal": null,
+      "route": [],
+      "sideBlips": []
+    },
+    "AERIAL_SPLIT": {
+      "x": 100, "y": 45, "rot": 0, "hideMap": true,
+      "sideBlips": []
+    },
+    "CART_ALLEY": {
+      "x": 100, "y": 165, "rot": 0,
+      "goal": { "x": 100, "y": 140 },
+      "route": [[100, 165], [100, 140]],
+      "sideBlips": []
+    },
+    "SHOOT": {
+      "x": 100, "y": 140, "rot": 0,
+      "goal": { "x": 100, "y": 140 },
+      "route": [],
+      "sideBlips": []
+    },
+    "SWITCH_NZH": {
+      "x": 100, "y": 140, "rot": 0, "hideMap": true,
+      "sideBlips": []
+    },
+    "APPROACH_CAR": {
+      "x": 100, "y": 85, "rot": 0,
+      "goal": { "x": 100, "y": 65 },
+      "route": [[100, 85], [100, 65]],
+      "sideBlips": []
+    },
+    "CARJACK": {
+      "x": 100, "y": 65, "rot": 0,
+      "goal": { "x": 100, "y": 65 },
+      "route": [],
+      "sideBlips": []
+    },
+    "DRIVE_FM": {
+      "x": 100, "y": 75, "rot": 90,
+      "goal": { "x": 140, "y": 70 },
+      "route": [[100, 75], [140, 75], [140, 70]],
+      "sideBlips": [
+        { "x": 65, "y": 75, "label": "保熟吗？" }
+      ]
+    },
+    "WATERMELON": {
+      "x": 65, "y": 75, "rot": 90,
+      "goal": { "x": 140, "y": 70 },
+      "route": [[65, 75], [100, 75], [140, 70]],
+      "sideBlips": []
+    },
+    "ROADBLOCK": {
+      "x": 140, "y": 70, "rot": 270,
+      "goal": { "x": 35, "y": 100 },
+      "route": [[140, 70], [100, 70], [100, 100], [35, 100]],
+      "sideBlips": []
+    },
+    "SWITCH_NHL": {
+      "x": 140, "y": 70, "rot": 270, "hideMap": true,
+      "sideBlips": []
+    },
+    "WESTGATE": {
+      "x": 35, "y": 100, "rot": 270,
+      "goal": { "x": 20, "y": 100 },
+      "route": [[35, 100], [20, 100]],
+      "sideBlips": []
+    },
+    "SWITCH_TO_INSURGENT": {
+      "x": 20, "y": 100, "rot": 270,
+      "goal": { "x": 10, "y": 100 },
+      "route": [[20, 100], [10, 100]],
+      "sideBlips": []
+    },
+    "BREAKOUT": {
+      "x": 10, "y": 100, "rot": 270,
+      "goal": null,
+      "route": [],
+      "sideBlips": []
+    },
+    "RESULT": {
+      "x": 10, "y": 100, "rot": 270, "hideMap": true,
+      "sideBlips": []
+    }
+  }
+}

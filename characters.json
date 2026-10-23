@@ -1,0 +1,69 @@
+{
+  "meta": {
+    "title": "GTA：大清合伙人",
+    "version": "1.0.0",
+    "defaultCharacter": "anchunxiao"
+  },
+
+  "characters": [
+    {
+      "id": "anchunxiao",
+      "name": "安春晓",
+      "avatar": "assets/portraits/anchunxiao.png",
+      "color": "#9b6bd6",
+      "description": "出身微寒、心思缜密的制香高手，LV.1 答应，擅以柔弱外表掩藏锋芒，熟悉宫中一切暗道与门路。",
+      "skills": [
+        "制香迷踪",
+        "潜行匿迹",
+        "歌喉惑敌"
+      ],
+      "specialAbility": "迷香迟滞——点燃特制线香，短时间内令周围敌人动作迟缓、难以察觉你的行动",
+      "vehicle": "青帷软轿马车",
+      "weapon": "淬毒银簪",
+      "currentMission": {
+        "title": "第一章 · 大清国库大劫案",
+        "objective": "装走最后一箱财物，携带赃款从宫道撤离"
+      }
+    },
+
+    {
+      "id": "niuhulu",
+      "name": "钮祜禄",
+      "avatar": "assets/portraits/niuhulu.png",
+      "color": "#d9a441",
+      "description": "足智多谋、人脉遍布六宫的回宫贵妃，本案主谋与操盘手，擅布局与谈判，总能在谈笑间扭转局势。",
+      "skills": [
+        "谋略布局",
+        "谈判交涉",
+        "人脉调度"
+      ],
+      "specialAbility": "惊鸿心眼——短时间内洞察场景中的关键线索、机关与可交互目标",
+      "vehicle": "凤纹鎏金辇",
+      "weapon": "琴中剑（长相思）",
+      "currentMission": {
+        "title": "第一章 · 大清国库大劫案",
+        "objective": "在西门安排内应与武装装甲车，规划最终撤离路线"
+      }
+    },
+
+    {
+      "id": "nianzhuohua",
+      "name": "年灼华",
+      "avatar": "assets/portraits/nianzhuohua.png",
+      "color": "#e0453b",
+      "description": "骄横凌厉、崇尚正面碾压的年贵妃，LV.45，火力与驾驶并重，越被围攻越凶猛。",
+      "skills": [
+        "火力压制",
+        "威慑震慑",
+        "重兵器精通"
+      ],
+      "specialAbility": "翊坤之怒——短时间内伤害翻倍、免疫一切控制，受击反而积蓄怒气",
+      "vehicle": "Pegassi Zentorno",
+      "weapon": "一丈红（鎏金鞭）",
+      "currentMission": {
+        "title": "第一章 · 大清国库大劫案",
+        "objective": "抢走皇帝御用 Zentorno，撞破封锁接应安春晓"
+      }
+    }
+  ]
+}
